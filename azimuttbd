@@ -1,0 +1,56 @@
+users
+  id int PK
+  name varchar(50)
+  password varchar(100)
+  role_id int
+
+roles
+  id int pk
+  name varchar(50)
+  permission varchar(100)
+
+clients
+  id int PK
+  name varchar(50)
+  email varchar(100)
+  phone varchar(20)
+  address varchar(150)
+
+orders 
+  id int PK
+  client_id
+  status enum('new','in progress','completed')
+  product_id int
+  date_created date
+  description varchar(200)
+  created_id int 
+fk orders.client_id -> clients.id
+fk orders.created_id -> users.id
+
+products
+  id int PK
+  name varchar(100)
+  price DECIMAL
+  quantity int
+fk orders.product_id -> products.id
+
+finances
+  id int PK
+  type_transaction enum('incomes','expenses')
+  date Date
+  amount decimal
+  description varchar(200)
+  type varchar(100)
+  user_id int
+fk finances.user_id -> users.id
+
+emails
+  id int pk
+  subject varchar(100)
+  body varchar(300)
+  send_date date
+  recipient_id int
+  created_id int
+fk emails.created_id -> users.id
+fk users.role_id -> roles.id
+fk emails.recipient_id -> clients.id
